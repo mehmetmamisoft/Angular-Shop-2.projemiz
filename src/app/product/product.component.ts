@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from './product';
-declare let alertify:any;
+import { AlertifyService } from '../services/alertify.service';
 
 @Component({
   selector: 'app-product',
@@ -9,7 +9,7 @@ declare let alertify:any;
 })
 export class ProductComponent implements OnInit {
 
-  constructor() {}
+  constructor(private alertifyService:AlertifyService) {}
   title = 'Ürün Listesi'
   filterText=""
   products:Product[]=[
@@ -42,6 +42,9 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {}
 
   addToCart(product:Product){
-    alertify.success("added");
+    //ilk hali bu alertify.success(product.name + " added");
+    //const ve import olunca bu hale geldu
+    //declare let diğer tarafa getti
+    this.alertifyService.basarili(product.name+ " added");
   }
 }
