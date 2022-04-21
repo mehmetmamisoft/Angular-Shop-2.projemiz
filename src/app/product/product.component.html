@@ -1,4 +1,3 @@
-
 <h3 *ngIf="products; else noProduct">{{ title }}</h3>
 
 <div class="form-group">
@@ -6,12 +5,12 @@
     class="form-control"
     id="productName"
     placeholder="Arama metninizi giriniz!"
+    [(ngModel)]="filterText"
   />
-  <div id="emailHelp" class="form-text">
-    We'll never share your email with anyone else.
+  <div *ngIf="filterText" class="form-text">
+   Şuan <strong>{{filterText}} </strong>aradınız!
   </div>
 </div>
-
 
 <div class="row">
   <ng-template #noProduct>
@@ -19,7 +18,11 @@
       Bu kategoride Ürün yoktur
     </div>
   </ng-template>
-  <div *ngFor="let product of products" class="card" style="width: 18rem">
+  <div
+    *ngFor="let product of products | productFilter: filterText"
+    class="card"
+    style="width: 18rem"
+  >
     <img [src]="product.imageUrl" class="card-img-top" alt="..." />
     <div class="card-body">
       <h5 class="card-title">
