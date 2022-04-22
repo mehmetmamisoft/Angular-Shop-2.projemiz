@@ -8,8 +8,21 @@ declare let alertify:any;
 export class AlertifyService {
 
   constructor() { }
+
   basarili(message:string){
 
     alertify.success(message)
   }
+
+  hatali(message:string){
+
+    alertify.error(message)
+  }
+
+  uyari(message:string){
+
+    alertify.warning(message)
+  }
+
+
 }
