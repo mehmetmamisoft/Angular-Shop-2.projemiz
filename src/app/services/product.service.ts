@@ -10,8 +10,12 @@ export class ProductService {
   constructor(private http: HttpClient) {}
   path = 'http://localhost:3000/products';
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.path).pipe(
+  getProducts(categoryId: number): Observable<Product[]> {
+    let newPath = this.path;
+    if (categoryId) {
+      newPath = newPath + '?categoryId=' + categoryId;
+    }
+    return this.http.get<Product[]>(newPath).pipe(
       //çapa gibi düşün
       tap((data) => console.log(JSON.stringify(data))),
       catchError(this.handleError)
@@ -19,14 +23,12 @@ export class ProductService {
   }
 
   handleError(err: HttpErrorResponse) {
-
-    let errorMessage=''
+    let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
-      errorMessage='bir hata oluştu' +err.error.message
+      errorMessage = 'bir hata oluştu' + err.error.message;
+    } else {
+      errorMessage = 'sistemsel bir hata ';
     }
-    else{
-      errorMessage='sistemsel bir hata '
-    }
-    return throwError (errorMessage);
-  };
+    return throwError(errorMessage);
+  }
 }
