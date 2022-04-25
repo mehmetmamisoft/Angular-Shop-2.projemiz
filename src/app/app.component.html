@@ -19,7 +19,9 @@
 
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
-        <a class="nav-link px-3" href="#">Sign out</a>
+        <a *ngIf="isLoggedin()==false" class="nav-link" routerLink="/login"> Login </a>
+        <a *ngIf="isLoggedin()==true" (click)="logOut()" class="nav-link" > LogOut </a>
+
       </div>
     </div>
   </header>
@@ -33,7 +35,11 @@
         <div class="position-sticky pt-3">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" routerLink="/products" >
+              <a
+                class="nav-link active"
+                aria-current="page"
+                routerLink="/products"
+              >
                 <span data-feather="home"></span>
                 Mağaza
               </a>
